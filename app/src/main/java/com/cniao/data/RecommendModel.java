@@ -2,8 +2,7 @@ package com.cniao.data;
 
 import com.cniao.bean.AppInfo;
 import com.cniao.bean.PageBean;
-import com.cniao.http.ApiService;
-import com.cniao.http.HttpManager;
+import com.cniao.data.http.ApiService;
 
 import retrofit2.Callback;
 
@@ -12,9 +11,16 @@ import retrofit2.Callback;
  */
 
 public class RecommendModel {
+
+    private ApiService mApiService;
+
+    public RecommendModel(ApiService mApiService) {
+        this.mApiService = mApiService;
+    }
+
     public void getApps(Callback<PageBean<AppInfo>> callback) {
-        HttpManager manager = new HttpManager();
-        ApiService apiService = manager.getRetrofit(manager.getOkHttpClient()).create(ApiService.class);
-        apiService.getApps("{'page':0}").enqueue(callback);
+//        HttpManager manager = new HttpManager();
+//        ApiService apiService = manager.getRetrofit(manager.getOkHttpClient()).create(ApiService.class);
+        mApiService.getApps("{'page':0}").enqueue(callback);
     }
 }

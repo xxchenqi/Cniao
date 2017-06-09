@@ -1,7 +1,13 @@
-package com.cniao.http;
+package com.cniao.di.module;
+
+import com.cniao.data.http.ApiService;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Singleton;
+
+import dagger.Module;
+import dagger.Provides;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -9,16 +15,14 @@ import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by Ivan on 2016/12/30.
+ * Created by chenqi on 2017/6/9.
  */
+@Module
+public class HttpModule {
 
-public class HttpManager {
-
-
-    public OkHttpClient getOkHttpClient(){
-
-
-
+    @Provides
+    @Singleton
+    public OkHttpClient provideOkHttpClient() {
         // log用拦截器
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
 
@@ -38,14 +42,11 @@ public class HttpManager {
                 .readTimeout(10, TimeUnit.SECONDS)
 
                 .build();
-
-
     }
 
-
-    public Retrofit getRetrofit(OkHttpClient okHttpClient){
-
-
+    @Provides
+    @Singleton
+    public Retrofit provideRetrofit(OkHttpClient okHttpClient) {
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(ApiService.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -54,6 +55,13 @@ public class HttpManager {
 
 
         return builder.build();
+    }
+
+    @Provides
+    @Singleton
+    public ApiService provideApiService(Retrofit retrofit) {
+        return retrofit.create(ApiService.class);
 
     }
+
 }

@@ -1,4 +1,4 @@
-package com.cniao.http;
+package com.cniao.data.http;
 
 import com.cniao.bean.AppInfo;
 import com.cniao.bean.PageBean;

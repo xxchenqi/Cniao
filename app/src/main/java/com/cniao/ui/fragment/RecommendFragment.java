@@ -13,13 +13,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.cniao.AppApplication;
 import com.cniao.R;
 import com.cniao.bean.AppInfo;
-import com.cniao.presenter.RecommendPresenter;
+import com.cniao.di.component.DaggerRecommendComponent;
+import com.cniao.di.module.RecommendModule;
 import com.cniao.presenter.contract.RecommendContract;
 import com.cniao.ui.adapter.RecommendAppAdapter;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,16 +37,18 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
     RecyclerView recycler_view;
 
     private RecommendAppAdapter adapter;
-    private RecommendContract.Presenter mPresenter;
-    private ProgressDialog mProgressDialog;
+    @Inject
+    RecommendContract.Presenter mPresenter;
+    @Inject
+    ProgressDialog mProgressDialog;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_recommend, container, false);
         ButterKnife.bind(this, view);
-        mProgressDialog = new ProgressDialog(getActivity());
-        mPresenter = new RecommendPresenter(this);
+        DaggerRecommendComponent.builder().appComponent(AppApplication.get(getActivity()).getAppComponent())
+        .recommendModule(new RecommendModule(this)).build().inject(this);
         initData();
         return view;
     }

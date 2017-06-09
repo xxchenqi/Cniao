@@ -5,6 +5,8 @@ import com.cniao.bean.PageBean;
 import com.cniao.data.RecommendModel;
 import com.cniao.presenter.contract.RecommendContract;
 
+import javax.inject.Inject;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -17,9 +19,10 @@ public class RecommendPresenter implements RecommendContract.Presenter {
     private RecommendContract.View mView;
     private RecommendModel mModel;
 
-    public RecommendPresenter(RecommendContract.View mView) {
+//    @Inject
+    public RecommendPresenter(RecommendContract.View mView, RecommendModel model) {
         this.mView = mView;
-        mModel = new RecommendModel();
+        mModel = model;
     }
 
 

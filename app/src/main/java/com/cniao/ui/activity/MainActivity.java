@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         initDrawLayout();
         initTabLayout();
-
-
     }
 
     private void initTabLayout() {
@@ -74,6 +72,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.menu_setting:
                         Toast.makeText(MainActivity.this, "设置", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        Toast.makeText(MainActivity.this, "default", Toast.LENGTH_SHORT).show();
                         break;
                 }
                 return false;
