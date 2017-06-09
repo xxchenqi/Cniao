@@ -15,18 +15,12 @@ import retrofit2.Response;
  * Created by chenqi on 2017/6/7.
  */
 
-public class RecommendPresenter implements RecommendContract.Presenter {
-    private RecommendContract.View mView;
-    private RecommendModel mModel;
-
-//    @Inject
-    public RecommendPresenter(RecommendContract.View mView, RecommendModel model) {
-        this.mView = mView;
-        mModel = model;
+public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendContract.View> {
+    @Inject
+    public RecommendPresenter(RecommendModel model, RecommendContract.View view) {
+        super(model, view);
     }
 
-
-    @Override
     public void requestDatas() {
         mView.showLoading();
         mModel.getApps(new Callback<PageBean<AppInfo>>() {

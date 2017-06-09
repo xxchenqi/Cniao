@@ -19,10 +19,14 @@
         <item name="android:src">@mipmap/ic_menu_more_overflow</item>
     </style>
 
-
     <style name="AppTheme.DrawerArrowToggle" parent="Base.Widget.AppCompat.DrawerArrowToggle">
         <item name="color">@android:color/white</item>
     </style>
 
+    <style name="AppTheme.Notitle.FullScreen" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
 
 </resources>

@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 
 import com.cniao.data.RecommendModel;
 import com.cniao.data.http.ApiService;
-import com.cniao.presenter.RecommendPresenter;
 import com.cniao.presenter.contract.RecommendContract;
 import com.cniao.ui.fragment.RecommendFragment;
 
@@ -27,10 +26,10 @@ public class RecommendModule {
         return mView;
     }
 
-    @Provides
-    public RecommendContract.Presenter providerPresenter(RecommendContract.View view, RecommendModel model) {
-        return new RecommendPresenter(view, model);
-    }
+//    @Provides
+//    public RecommendContract.Presenter providerPresenter(RecommendContract.View view, RecommendModel model) {
+//        return new RecommendPresenter(view, model);
+//    }
 
     @Provides
     public ProgressDialog providerProgressDialog(RecommendContract.View view) {
