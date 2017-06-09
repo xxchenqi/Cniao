@@ -6,6 +6,7 @@ import com.cniao.bean.PageBean;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
+import rx.Observable;
 
 /**
  * Created by Ivan on 2016/12/30.
@@ -18,7 +19,7 @@ public interface ApiService {
 
 
     @GET("featured")
-    public Call<PageBean<AppInfo>> getApps(@Query("p") String jsonParam);
+    public Observable<PageBean<AppInfo>> getApps(@Query("p") String jsonParam);
 
 
 }

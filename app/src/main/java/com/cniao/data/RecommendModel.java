@@ -5,6 +5,7 @@ import com.cniao.bean.PageBean;
 import com.cniao.data.http.ApiService;
 
 import retrofit2.Callback;
+import rx.Observable;
 
 /**
  * Created by chenqi on 2017/6/7.
@@ -18,9 +19,7 @@ public class RecommendModel {
         this.mApiService = mApiService;
     }
 
-    public void getApps(Callback<PageBean<AppInfo>> callback) {
-//        HttpManager manager = new HttpManager();
-//        ApiService apiService = manager.getRetrofit(manager.getOkHttpClient()).create(ApiService.class);
-        mApiService.getApps("{'page':0}").enqueue(callback);
+    public Observable<PageBean<AppInfo>> getApps() {
+        return mApiService.getApps("{'page':0}");
     }
 }

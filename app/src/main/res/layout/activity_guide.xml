@@ -34,7 +34,6 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
         android:gravity="center_horizontal"
-        app:ci_drawable="@color/color_w"
         app:ci_height="15dp"
         app:ci_width="15dp" />
 
