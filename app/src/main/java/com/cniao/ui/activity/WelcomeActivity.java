@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.cniao.R;
+import com.cniao.common.Constant;
+import com.cniao.common.util.ACache;
 import com.eftimoff.androipathview.PathView;
 
 import butterknife.BindView;
@@ -29,10 +31,20 @@ public class WelcomeActivity extends AppCompatActivity {
                 .listenerEnd(new PathView.AnimatorBuilder.ListenerEnd() {
                     @Override
                     public void onAnimationEnd() {
-                        startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-                        finish();
+                        jump();
                     }
                 })
                 .start();
+    }
+
+    private void jump() {
+        String isShowGuide = ACache.get(this).getAsString(Constant.IS_SHOW_GUIDE);
+        // 第一次启动进入引导页面
+        if (null == isShowGuide) {
+            startActivity(new Intent(this, GuideActivity.class));
+        } else {
+            startActivity(new Intent(this, MainActivity.class));
+        }
+        this.finish();
     }
 }

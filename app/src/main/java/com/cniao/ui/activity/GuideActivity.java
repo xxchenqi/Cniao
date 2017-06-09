@@ -11,6 +11,8 @@ import android.widget.RelativeLayout;
 
 
 import com.cniao.R;
+import com.cniao.common.Constant;
+import com.cniao.common.util.ACache;
 import com.cniao.ui.adapter.GuideFragmentAdapter;
 import com.cniao.ui.fragment.GuideFragment;
 import com.cniao.ui.widget.CircleIndicator;
@@ -91,7 +93,9 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
 
     @OnClick(R.id.btn_enter)
     public void onClick() {
-
+        ACache.get(this).put(Constant.IS_SHOW_GUIDE, "0");
+        startActivity(new Intent(this, MainActivity.class));
+        this.finish();
 
     }
 }
