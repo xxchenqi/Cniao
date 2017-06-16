@@ -1,5 +1,7 @@
 package com.cniao.di.module;
 
+import android.app.Application;
+
 import com.cniao.AppApplication;
 import com.google.gson.Gson;
 
@@ -13,15 +15,15 @@ import dagger.Provides;
  */
 @Module
 public class AppModule {
-    private AppApplication mApplication;
+    private Application mApplication;
 
-    public AppModule(AppApplication appApplication) {
-        this.mApplication = appApplication;
+    public AppModule(Application application) {
+        this.mApplication = application;
     }
 
     @Provides
     @Singleton
-    public AppApplication provideApplication() {
+    public Application provideApplication() {
         return mApplication;
     }
 

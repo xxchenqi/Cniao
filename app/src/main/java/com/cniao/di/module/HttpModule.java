@@ -1,5 +1,9 @@
 package com.cniao.di.module;
 
+import android.app.Application;
+
+import com.cniao.AppApplication;
+import com.cniao.common.rx.RxErrorHandler;
 import com.cniao.data.http.ApiService;
 
 import java.util.concurrent.TimeUnit;
@@ -61,7 +65,13 @@ public class HttpModule {
     @Singleton
     public ApiService provideApiService(Retrofit retrofit) {
         return retrofit.create(ApiService.class);
-
     }
+
+    @Provides
+    @Singleton
+    public RxErrorHandler provideErrorHandler(Application appApplication){
+        return new RxErrorHandler(appApplication);
+    }
+
 
 }

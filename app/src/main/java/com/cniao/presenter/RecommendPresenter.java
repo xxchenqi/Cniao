@@ -3,7 +3,9 @@ package com.cniao.presenter;
 import com.cniao.bean.AppInfo;
 import com.cniao.bean.BaseBean;
 import com.cniao.bean.PageBean;
+import com.cniao.common.rx.RxErrorHandler;
 import com.cniao.common.rx.RxHttpResponeCompat;
+import com.cniao.common.rx.subscriber.ErrorHandlerSubscriber;
 import com.cniao.data.RecommendModel;
 import com.cniao.presenter.contract.RecommendContract;
 
@@ -23,9 +25,13 @@ import rx.schedulers.Schedulers;
  */
 
 public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendContract.View> {
+
+    private RxErrorHandler mRxErrorHandler;
+
     @Inject
-    public RecommendPresenter(RecommendModel model, RecommendContract.View view) {
+    public RecommendPresenter(RecommendModel model, RecommendContract.View view, RxErrorHandler errorHandler) {
         super(model, view);
+        this.mRxErrorHandler = errorHandler;
     }
 
     public void requestDatas() {
@@ -36,50 +42,25 @@ public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendC
 //                .observeOn(AndroidSchedulers.mainThread())
                 .compose(RxHttpResponeCompat.<PageBean<AppInfo>>compatResult())
                 //订阅
-                .subscribe(new Observer<PageBean<AppInfo>>() {
+                .subscribe(new ErrorHandlerSubscriber<PageBean<AppInfo>>(mRxErrorHandler) {
                     @Override
-                    public void onCompleted() {
-
+                    public void onStart() {
+                        mView.showLoading();
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-
+                    public void onCompleted() {
+                        mView.dismissLoading();
                     }
 
                     @Override
                     public void onNext(PageBean<AppInfo> appInfoPageBean) {
-
+                        if (appInfoPageBean != null) {
+                            mView.showResult(appInfoPageBean.getDatas());
+                        } else {
+                            mView.showNoData();
+                        }
                     }
                 });
-
-
-
-//        new Subscriber<PageBean<AppInfo>>() {
-//            @Override
-//            public void onStart() {
-//                super.onStart();
-//                mView.showLoading();
-//            }
-//
-//            @Override
-//            public void onCompleted() {
-//                mView.dismissLoading();
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                mView.dismissLoading();
-//            }
-//
-//            @Override
-//            public void onNext(PageBean<AppInfo> response) {
-//                if (response != null) {
-//                    mView.showResult(response.getDatas());
-//                } else {
-//                    mView.showNoData();
-//                }
-//            }
-//        }
     }
 }

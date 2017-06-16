@@ -37,7 +37,7 @@ public class RxHttpResponeCompat {
                             return Observable.error(new ApiException(tBaseBean.getStatus(), tBaseBean.getMessage()));
                         }
                     }
-                }).observeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread());
+                }).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io());
             }
         };
     }

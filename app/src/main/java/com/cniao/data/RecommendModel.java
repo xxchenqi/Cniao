@@ -1,6 +1,7 @@
 package com.cniao.data;
 
 import com.cniao.bean.AppInfo;
+import com.cniao.bean.BaseBean;
 import com.cniao.bean.PageBean;
 import com.cniao.data.http.ApiService;
 
@@ -19,7 +20,7 @@ public class RecommendModel {
         this.mApiService = mApiService;
     }
 
-    public Observable<PageBean<AppInfo>> getApps() {
+    public Observable<BaseBean<PageBean<AppInfo>>> getApps() {
         return mApiService.getApps("{'page':0}");
     }
 }
