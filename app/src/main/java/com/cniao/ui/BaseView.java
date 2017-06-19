@@ -6,7 +6,6 @@ package com.cniao.ui;
 
 public interface BaseView {
     void showLoading();
-
     void dismissLoading();
-
+    void showError(String msg);
 }

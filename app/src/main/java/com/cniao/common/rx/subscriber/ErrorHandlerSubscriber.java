@@ -1,5 +1,7 @@
 package com.cniao.common.rx.subscriber;
 
+import android.content.Context;
+
 import com.cniao.common.exception.BaseException;
 import com.cniao.common.rx.RxErrorHandler;
 
@@ -9,16 +11,20 @@ import com.cniao.common.rx.RxErrorHandler;
 
 public abstract class ErrorHandlerSubscriber<T> extends DefaultSubscriber<T> {
 
-    private RxErrorHandler mErrorHandler;
+    protected RxErrorHandler mErrorHandler = null;
 
-    public ErrorHandlerSubscriber(RxErrorHandler mErrorHandler) {
-        this.mErrorHandler = mErrorHandler;
+    protected Context mContext;
+
+    public ErrorHandlerSubscriber(Context context){
+        this.mContext = context;
+        mErrorHandler = new RxErrorHandler(mContext);
     }
+
 
     @Override
     public void onError(Throwable e) {
+        e.printStackTrace();
         BaseException exception = mErrorHandler.handleError(e);
         mErrorHandler.showErrorMessage(exception);
-
     }
 }

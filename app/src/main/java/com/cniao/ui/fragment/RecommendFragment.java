@@ -26,7 +26,7 @@ import butterknife.BindView;
  * Created by chenqi on 2017/6/6.
  */
 
-public class RecommendFragment extends BaseFragment<RecommendPresenter> implements RecommendContract.View {
+public class RecommendFragment extends ProgressFragment<RecommendPresenter> implements RecommendContract.View {
     @BindView(R.id.recycler_view)
     RecyclerView recycler_view;
 
@@ -39,6 +39,8 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
     public int setLayout() {
         return R.layout.fragment_recommend;
     }
+
+
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -72,20 +74,7 @@ public class RecommendFragment extends BaseFragment<RecommendPresenter> implemen
     }
 
     @Override
-    public void showError(String msg) {
-        Toast.makeText(getActivity(), "服务器异常:" + msg, Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void showLoading() {
-        mProgressDialog.show();
-    }
-
-    @Override
-    public void dismissLoading() {
-        if (mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
-
+    public void onEmptyViewClick() {
+        mPresenter.requestDatas();
     }
 }

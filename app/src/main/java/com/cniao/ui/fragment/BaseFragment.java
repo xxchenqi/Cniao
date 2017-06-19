@@ -1,5 +1,6 @@
 package com.cniao.ui.fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import com.cniao.AppApplication;
 import com.cniao.R;
 import com.cniao.di.component.AppComponent;
 import com.cniao.presenter.BasePresenter;
+import com.cniao.ui.BaseView;
 
 import javax.inject.Inject;
 
@@ -21,12 +23,13 @@ import butterknife.Unbinder;
  * Created by chenqi on 2017/6/9.
  */
 
-public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
+public abstract class BaseFragment<T extends BasePresenter> extends Fragment implements BaseView {
     private Unbinder bind;
     private AppApplication mApplication;
     @Inject
     T mPresenter;
     private View mRootView;
+    private ProgressDialog dialog;
 
     @Nullable
     @Override
@@ -57,4 +60,18 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     public abstract void setupActivityComponent(AppComponent appComponent);
 
     public abstract void init();
+
+    @Override
+    public void showLoading() {
+        dialog = new ProgressDialog(getActivity());
+        dialog.setMessage("loading.....");
+        dialog.show();
+    }
+
+    @Override
+    public void dismissLoading() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+    }
 }

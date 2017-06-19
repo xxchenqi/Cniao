@@ -56,4 +56,6 @@ dependencies {
     provided 'org.glassfish:javax.annotation:10.0-b28'
     //pathview
     compile 'com.eftimoff:android-pathview:1.0.8@aar'
+    //alert
+    compile 'cn.pedant.sweetalert:library:1.3'
 }
