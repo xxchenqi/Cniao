@@ -3,10 +3,11 @@ package com.cniao.common.rx.subscriber;
 import android.content.Context;
 
 import com.cniao.common.exception.BaseException;
+import com.cniao.common.util.ProgressDialogHandler;
 import com.cniao.ui.BaseView;
 
 
-public abstract class ProgressSubscriber<T> extends ErrorHandlerSubscriber<T> {
+public abstract class ProgressSubscriber<T> extends ErrorHandlerSubscriber<T> implements ProgressDialogHandler.OnProgressCancelListener{
 
     private BaseView mView;
 
@@ -37,4 +38,8 @@ public abstract class ProgressSubscriber<T> extends ErrorHandlerSubscriber<T> {
         mView.showError(baseException.getDisplayMessage());
     }
 
+    @Override
+    public void onCancelProgress() {
+        unsubscribe();
+    }
 }

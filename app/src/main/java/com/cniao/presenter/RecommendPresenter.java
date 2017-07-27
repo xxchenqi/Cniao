@@ -3,7 +3,6 @@ package com.cniao.presenter;
 import com.cniao.bean.AppInfo;
 import com.cniao.bean.PageBean;
 import com.cniao.common.rx.RxHttpResponeCompat;
-import com.cniao.common.rx.subscriber.ProgressDialogSubscriber;
 import com.cniao.common.rx.subscriber.ProgressSubscriber;
 import com.cniao.data.RecommendModel;
 import com.cniao.presenter.contract.RecommendContract;

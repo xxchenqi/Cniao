@@ -15,7 +15,7 @@ public abstract class ErrorHandlerSubscriber<T> extends DefaultSubscriber<T> {
 
     protected Context mContext;
 
-    public ErrorHandlerSubscriber(Context context){
+    public ErrorHandlerSubscriber(Context context) {
         this.mContext = context;
         mErrorHandler = new RxErrorHandler(mContext);
     }
@@ -23,8 +23,11 @@ public abstract class ErrorHandlerSubscriber<T> extends DefaultSubscriber<T> {
 
     @Override
     public void onError(Throwable e) {
-        e.printStackTrace();
         BaseException exception = mErrorHandler.handleError(e);
-        mErrorHandler.showErrorMessage(exception);
+        if (exception == null) {
+            e.printStackTrace();
+        } else {
+            mErrorHandler.showErrorMessage(exception);
+        }
     }
 }
