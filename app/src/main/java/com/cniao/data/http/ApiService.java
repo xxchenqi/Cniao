@@ -3,9 +3,12 @@ package com.cniao.data.http;
 import com.cniao.bean.AppInfo;
 import com.cniao.bean.BaseBean;
 import com.cniao.bean.PageBean;
+import com.cniao.bean.requestbean.LoginRequestBean;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -22,5 +25,12 @@ public interface ApiService {
     @GET("featured2")
     public Observable<BaseBean<PageBean<AppInfo>>> getApps(@Query("p") String jsonParam);
 
+    @POST("login")
+    public Observable<BaseBean> login(@Body LoginRequestBean bean);
 
+    @GET("index")
+    public Observable<BaseBean<AppInfo>> index();
+
+    @GET("toplist")
+    public Observable<BaseBean<AppInfo>> topList(@Query("page") int page);
 }
