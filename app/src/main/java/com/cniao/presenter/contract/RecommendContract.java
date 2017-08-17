@@ -1,9 +1,6 @@
 package com.cniao.presenter.contract;
 
 import com.cniao.bean.AppInfo;
-import com.cniao.data.RecommendModel;
-import com.cniao.presenter.BasePresenter;
-import com.cniao.presenter.RecommendPresenter;
 import com.cniao.ui.BaseView;
 
 import java.util.List;
@@ -17,5 +14,7 @@ public interface RecommendContract {
         void showResult(List<AppInfo> datas);
         void showNoData();
         void showError(String msg);
+        void onRequestPermissionSuccess();
+        void onRequestPermissionError();
     }
 }

@@ -41,7 +41,6 @@ public class RecommendFragment extends ProgressFragment<RecommendPresenter> impl
     }
 
 
-
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
         DaggerRecommendComponent.builder().appComponent(appComponent)
@@ -71,6 +70,16 @@ public class RecommendFragment extends ProgressFragment<RecommendPresenter> impl
     @Override
     public void showNoData() {
         Toast.makeText(getActivity(), "暂时无数据", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onRequestPermissionSuccess() {
+        mPresenter.requestDatas();
+    }
+
+    @Override
+    public void onRequestPermissionError() {
+        Toast.makeText(getActivity(), "您已拒绝授权", Toast.LENGTH_SHORT).show();
     }
 
     @Override
