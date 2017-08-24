@@ -2,10 +2,10 @@ package com.cniao.data;
 
 import com.cniao.bean.AppInfo;
 import com.cniao.bean.BaseBean;
+import com.cniao.bean.IndexBean;
 import com.cniao.bean.PageBean;
 import com.cniao.data.http.ApiService;
 
-import retrofit2.Callback;
 import rx.Observable;
 
 /**
@@ -22,5 +22,9 @@ public class RecommendModel {
 
     public Observable<BaseBean<PageBean<AppInfo>>> getApps() {
         return mApiService.getApps("{'page':0}");
+    }
+
+    public Observable<BaseBean<IndexBean>> index() {
+        return mApiService.index();
     }
 }

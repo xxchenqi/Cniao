@@ -2,21 +2,18 @@ package com.cniao.ui.fragment;
 
 import android.app.ProgressDialog;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.cniao.R;
-import com.cniao.bean.AppInfo;
+import com.cniao.bean.IndexBean;
 import com.cniao.di.component.AppComponent;
 import com.cniao.di.component.DaggerRecommendComponent;
 import com.cniao.di.module.RecommendModule;
 import com.cniao.presenter.RecommendPresenter;
 import com.cniao.presenter.contract.RecommendContract;
-import com.cniao.ui.adapter.RecommendAppAdapter;
-
-import java.util.List;
+import com.cniao.ui.adapter.IndexMultipleAdapter;
 
 import javax.inject.Inject;
 
@@ -30,7 +27,7 @@ public class RecommendFragment extends ProgressFragment<RecommendPresenter> impl
     @BindView(R.id.recycler_view)
     RecyclerView recycler_view;
 
-    private RecommendAppAdapter adapter;
+    private IndexMultipleAdapter adapter;
 
     @Inject
     ProgressDialog mProgressDialog;
@@ -49,27 +46,21 @@ public class RecommendFragment extends ProgressFragment<RecommendPresenter> impl
 
     @Override
     public void init() {
+        initRecycleView();
         mPresenter.requestDatas();
     }
 
-    private void initRecycleView(List<AppInfo> datas) {
+    private void initRecycleView() {
         recycler_view.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recycler_view.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.HORIZONTAL));
-
         recycler_view.setItemAnimator(new DefaultItemAnimator());
-        adapter = new RecommendAppAdapter(getActivity(), datas);
+    }
+
+
+    @Override
+    public void showResult(IndexBean indexBean) {
+        adapter = new IndexMultipleAdapter(getActivity());
+        adapter.setData(indexBean);
         recycler_view.setAdapter(adapter);
-    }
-
-
-    @Override
-    public void showResult(List<AppInfo> datas) {
-        initRecycleView(datas);
-    }
-
-    @Override
-    public void showNoData() {
-        Toast.makeText(getActivity(), "暂时无数据", Toast.LENGTH_SHORT).show();
     }
 
     @Override
