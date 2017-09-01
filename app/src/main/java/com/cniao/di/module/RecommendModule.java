@@ -2,9 +2,9 @@ package com.cniao.di.module;
 
 import android.app.ProgressDialog;
 
-import com.cniao.data.RecommendModel;
+import com.cniao.data.AppInfoModel;
 import com.cniao.data.http.ApiService;
-import com.cniao.presenter.contract.RecommendContract;
+import com.cniao.presenter.contract.AppInfoContract;
 import com.cniao.ui.fragment.RecommendFragment;
 
 import dagger.Module;
@@ -15,29 +15,29 @@ import dagger.Provides;
  */
 @Module
 public class RecommendModule {
-    private RecommendContract.View mView;
+    private AppInfoContract.View mView;
 
-    public RecommendModule(RecommendContract.View mView) {
+    public RecommendModule(AppInfoContract.View mView) {
         this.mView = mView;
     }
 
     @Provides
-    public RecommendContract.View providerView() {
+    public AppInfoContract.View providerView() {
         return mView;
     }
 
 //    @Provides
-//    public RecommendContract.Presenter providerPresenter(RecommendContract.View view, RecommendModel model) {
+//    public AppInfoContract.Presenter providerPresenter(AppInfoContract.View view, AppInfoModel model) {
 //        return new RecommendPresenter(view, model);
 //    }
 
     @Provides
-    public ProgressDialog providerProgressDialog(RecommendContract.View view) {
+    public ProgressDialog providerProgressDialog(AppInfoContract.View view) {
         return new ProgressDialog(((RecommendFragment) view).getActivity());
     }
 
     @Provides
-    public RecommendModel providerModel(ApiService apiService) {
-        return new RecommendModel(apiService);
+    public AppInfoModel providerModel(ApiService apiService) {
+        return new AppInfoModel(apiService);
     }
 }

@@ -3,8 +3,8 @@ package com.cniao.presenter;
 import com.cniao.bean.IndexBean;
 import com.cniao.common.rx.RxHttpResponeCompat;
 import com.cniao.common.rx.subscriber.ProgressSubscriber;
-import com.cniao.data.RecommendModel;
-import com.cniao.presenter.contract.RecommendContract;
+import com.cniao.data.AppInfoModel;
+import com.cniao.presenter.contract.AppInfoContract;
 
 import javax.inject.Inject;
 
@@ -12,11 +12,11 @@ import javax.inject.Inject;
  * Created by chenqi on 2017/6/7.
  */
 
-public class RecommendPresenter extends BasePresenter<RecommendModel, RecommendContract.View> {
+public class RecommendPresenter extends BasePresenter<AppInfoModel, AppInfoContract.View> {
 
 
     @Inject
-    public RecommendPresenter(RecommendModel model, RecommendContract.View view) {
+    public RecommendPresenter(AppInfoModel model, AppInfoContract.View view) {
         super(model, view);
     }
 

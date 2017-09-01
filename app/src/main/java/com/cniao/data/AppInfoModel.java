@@ -12,11 +12,11 @@ import rx.Observable;
  * Created by chenqi on 2017/6/7.
  */
 
-public class RecommendModel {
+public class AppInfoModel {
 
     private ApiService mApiService;
 
-    public RecommendModel(ApiService mApiService) {
+    public AppInfoModel(ApiService mApiService) {
         this.mApiService = mApiService;
     }
 
@@ -26,5 +26,8 @@ public class RecommendModel {
 
     public Observable<BaseBean<IndexBean>> index() {
         return mApiService.index();
+    }
+    public Observable<BaseBean<PageBean<AppInfo>>> topList(int page) {
+        return mApiService.topList(page);
     }
 }
