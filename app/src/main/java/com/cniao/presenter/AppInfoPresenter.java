@@ -1,6 +1,7 @@
 package com.cniao.presenter;
 
 import com.cniao.bean.AppInfo;
+import com.cniao.bean.BaseBean;
 import com.cniao.bean.PageBean;
 import com.cniao.common.rx.RxHttpResponeCompat;
 import com.cniao.common.rx.subscriber.ErrorHandlerSubscriber;
@@ -10,19 +11,23 @@ import com.cniao.presenter.contract.AppInfoContract;
 
 import javax.inject.Inject;
 
+import rx.Observable;
 import rx.Subscriber;
 
 /**
  * Created by chenqi on 2017/8/24.
  */
 
-public class TopListPresenter extends BasePresenter<AppInfoModel, AppInfoContract.TopListView> {
+public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContract.AppInfoView> {
+    public static final int TOP_LIST = 1;
+    public static final int GAME = 2;
+
     @Inject
-    public TopListPresenter(AppInfoModel appInfoModel, AppInfoContract.TopListView topListView) {
+    public AppInfoPresenter(AppInfoModel appInfoModel, AppInfoContract.AppInfoView topListView) {
         super(appInfoModel, topListView);
     }
 
-    public void getTopListApps(int page) {
+    public void requestData(int type, int page) {
         Subscriber subscriber = null;
         if (page == 0) {
             //加载第一页
@@ -46,10 +51,22 @@ public class TopListPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
                 }
             };
         }
+        Observable observable = getObservable(type, page);
 
-        mModel.topList(page)
+        observable
                 .compose(RxHttpResponeCompat.<PageBean<AppInfo>>compatResult())
                 .subscribe(subscriber);
+    }
+
+    private Observable<BaseBean<PageBean<AppInfo>>> getObservable(int type, int page) {
+        switch (type) {
+            case TOP_LIST:
+                return mModel.topList(page);
+            case GAME:
+                return mModel.games(page);
+            default:
+                return Observable.empty();
+        }
     }
 
 

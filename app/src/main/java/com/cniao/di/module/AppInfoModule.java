@@ -11,15 +11,15 @@ import dagger.Provides;
  * Created by chenqi on 2017/8/24.
  */
 @Module
-public class TopListModule {
-    private AppInfoContract.TopListView mView;
+public class AppInfoModule {
+    private AppInfoContract.AppInfoView mView;
 
-    public TopListModule(AppInfoContract.TopListView mView) {
+    public AppInfoModule(AppInfoContract.AppInfoView mView) {
         this.mView = mView;
     }
 
     @Provides
-    public AppInfoContract.TopListView providerView() {
+    public AppInfoContract.AppInfoView providerView() {
         return mView;
     }
 
