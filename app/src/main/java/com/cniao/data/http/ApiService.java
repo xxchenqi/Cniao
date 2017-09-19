@@ -3,6 +3,7 @@ package com.cniao.data.http;
 import com.cniao.bean.AppInfo;
 import com.cniao.bean.BaseBean;
 import com.cniao.bean.IndexBean;
+import com.cniao.bean.LoginBean;
 import com.cniao.bean.PageBean;
 import com.cniao.bean.requestbean.LoginRequestBean;
 
@@ -24,14 +25,15 @@ public interface ApiService {
     public Observable<BaseBean<PageBean<AppInfo>>> getApps(@Query("p") String jsonParam);
 
     @POST("login")
-    public Observable<BaseBean> login(@Body LoginRequestBean bean);
+    public Observable<BaseBean<LoginBean>> login(@Body LoginRequestBean bean);
 
     @GET("index")
     public Observable<BaseBean<IndexBean>> index();
 
     @GET("toplist")
-    public  Observable<BaseBean<PageBean<AppInfo>>> topList(@Query("page") int page);
+    public Observable<BaseBean<PageBean<AppInfo>>> topList(@Query("page") int page);
 
     @GET("game")
-    public  Observable<BaseBean<PageBean<AppInfo>>> games(@Query("page") int page);
+    public Observable<BaseBean<PageBean<AppInfo>>> games(@Query("page") int page);
+
 }

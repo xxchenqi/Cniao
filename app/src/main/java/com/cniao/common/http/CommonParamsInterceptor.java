@@ -42,8 +42,6 @@ public class CommonParamsInterceptor implements Interceptor {
     public Response intercept(Chain chain) throws IOException {
         Request request = chain.request();
         try {
-
-
             String method = request.method();
             HashMap<String, Object> commonParamsMap = new HashMap<>();
             commonParamsMap.put(Constant.IMEI, DeviceUtils.getIMEI(mContext));
@@ -75,10 +73,8 @@ public class CommonParamsInterceptor implements Interceptor {
                         rootMap.put(key, httpUrl.queryParameter(key));
                     }
                 }
-
                 rootMap.put("publicParams", commonParamsMap); // 重新组装
                 String newJsonParams = mGson.toJson(rootMap); // {"page":0,"publicParams":{"imei":'xxxxx',"sdk":14,.....}}
-
                 String url = httpUrl.toString();
 
                 int index = url.indexOf("?");
@@ -88,34 +84,20 @@ public class CommonParamsInterceptor implements Interceptor {
                 url = url + "?" + Constant.PARAM + "=" + newJsonParams; //  http://112.124.22.238:8081/course_api/cniaoplay/featured?p= {"page":0,"publicParams":{"imei":'xxxxx',"sdk":14,.....}}
                 request = request.newBuilder().url(url).build();
             } else if (method.equals("POST")) {
-
                 RequestBody body = request.body();
-
-
                 HashMap<String, Object> rootMap = new HashMap<>();
                 if (body instanceof FormBody) { // form 表单
-
                     for (int i = 0; i < ((FormBody) body).size(); i++) {
-
                         rootMap.put(((FormBody) body).encodedName(i), ((FormBody) body).encodedValue(i));
                     }
-
                 } else {
-
                     Buffer buffer = new Buffer();
-
                     body.writeTo(buffer);
-
                     String oldJsonParams = buffer.readUtf8();
-
                     rootMap = mGson.fromJson(oldJsonParams, HashMap.class); // 原始参数
                     rootMap.put("publicParams", commonParamsMap); // 重新组装
                     String newJsonParams = mGson.toJson(rootMap); // {"page":0,"publicParams":{"imei":'xxxxx',"sdk":14,.....}}
-
-
                     request = request.newBuilder().post(RequestBody.create(JSON, newJsonParams)).build();
-
-
                 }
             }
         } catch (JsonSyntaxException e) {
