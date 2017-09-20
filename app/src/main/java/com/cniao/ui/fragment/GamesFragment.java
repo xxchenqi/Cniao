@@ -19,7 +19,7 @@ public class GamesFragment extends BaseAppInfoFragment {
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
         DaggerAppInfoComponent.builder().appComponent(appComponent)
-                .appInfoModule(new AppInfoModule(this)).build().injectGamesFragnebt(this);
+                .appInfoModule(new AppInfoModule(this)).build().injectGamesFragment(this);
     }
 
     @Override

@@ -2,14 +2,18 @@ package com.cniao.data.http;
 
 import com.cniao.bean.AppInfo;
 import com.cniao.bean.BaseBean;
+import com.cniao.bean.Category;
 import com.cniao.bean.IndexBean;
 import com.cniao.bean.LoginBean;
 import com.cniao.bean.PageBean;
 import com.cniao.bean.requestbean.LoginRequestBean;
 
+import java.util.List;
+
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import rx.Observable;
 
@@ -35,5 +39,18 @@ public interface ApiService {
 
     @GET("game")
     public Observable<BaseBean<PageBean<AppInfo>>> games(@Query("page") int page);
+    @GET("category")
+    Observable<BaseBean<List<Category>>> getCategories();
+
+
+    @GET("category/featured/{categoryid}")
+    Observable<BaseBean<PageBean<AppInfo>>> getFeaturedAppsByCategory(@Path("categoryid") int categoryid, @Query("page") int page);
+
+    @GET("category/toplist/{categoryid}")
+    Observable<BaseBean<PageBean<AppInfo>>> getTopListAppsByCategory(@Path("categoryid") int categoryid,@Query("page") int page);
+
+    @GET("category/newlist/{categoryid}")
+    Observable<BaseBean<PageBean<AppInfo>>> getNewListAppsByCategory(@Path("categoryid") int categoryid,@Query("page") int page);
+
 
 }

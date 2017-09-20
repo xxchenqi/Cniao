@@ -118,6 +118,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void logout() {
+        headerView.setEnabled(true);
         ACache aCache = ACache.get(this);
         aCache.put(Constant.TOKEN, "");
         aCache.put(Constant.USER, "");
@@ -155,6 +156,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initUserHeadView(User user) {
+        headerView.setEnabled(false);
         Glide.with(this).load(user.getLogo_url()).transform(new GlideCircleTransform(this))
                 .into(mUserHeadView);
         mTextUserName.setText(user.getUsername());

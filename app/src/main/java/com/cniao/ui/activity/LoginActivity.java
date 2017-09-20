@@ -2,6 +2,8 @@ package com.cniao.ui.activity;
 
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 
 import com.cniao.R;
@@ -89,8 +91,24 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 mPresenter.login(mTxtMobi.getText().toString().trim(), mTxtPassword.getText().toString().trim());
             }
         });
+        mToolBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        mTxtMobi.setText("13020169902");
+        mTxtPassword.setText("cq13020169902");
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     private boolean isPhoneValid(String phone) {
         return phone.length() == 11;

@@ -1,8 +1,10 @@
 package com.cniao.common.http;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.cniao.common.Constant;
+import com.cniao.common.util.ACache;
 import com.cniao.common.util.DensityUtil;
 import com.cniao.common.util.DeviceUtils;
 import com.google.gson.Gson;
@@ -53,6 +55,10 @@ public class CommonParamsInterceptor implements Interceptor {
             commonParamsMap.put(Constant.SDK, DeviceUtils.getBuildVersionSDK() + "");
             commonParamsMap.put(Constant.DENSITY_SCALE_FACTOR, mContext.getResources().getDisplayMetrics().density + "");
 
+            ACache aCache = ACache.get(mContext);
+            String token = aCache.getAsString(Constant.TOKEN);
+            commonParamsMap.put(Constant.TOKEN, token == null ? "" : token);
+
             if (method.equals("GET")) {
                 HttpUrl httpUrl = request.url();
                 HashMap<String, Object> rootMap = new HashMap<>();
@@ -94,10 +100,15 @@ public class CommonParamsInterceptor implements Interceptor {
                     Buffer buffer = new Buffer();
                     body.writeTo(buffer);
                     String oldJsonParams = buffer.readUtf8();
-                    rootMap = mGson.fromJson(oldJsonParams, HashMap.class); // 原始参数
-                    rootMap.put("publicParams", commonParamsMap); // 重新组装
-                    String newJsonParams = mGson.toJson(rootMap); // {"page":0,"publicParams":{"imei":'xxxxx',"sdk":14,.....}}
-                    request = request.newBuilder().post(RequestBody.create(JSON, newJsonParams)).build();
+                    if (!TextUtils.isEmpty(oldJsonParams)) {
+                        rootMap = mGson.fromJson(oldJsonParams, HashMap.class); // 原始参数
+                        if (rootMap != null) {
+                            rootMap.put("publicParams", commonParamsMap); // 重新组装
+                            String newJsonParams = mGson.toJson(rootMap); // {"page":0,"publicParams":{"imei":'xxxxx',"sdk":14,.....}}
+                            request = request.newBuilder().post(RequestBody.create(JSON, newJsonParams)).build();
+                        }
+                    }
+
                 }
             }
         } catch (JsonSyntaxException e) {

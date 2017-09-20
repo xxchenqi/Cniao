@@ -31,14 +31,12 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
     @Override
     public void init() {
         mPresenter.requestData(type(), page);
-        initRecycle();
+        initRecyclerView();
     }
 
-    private void initRecycle() {
+    protected void initRecyclerView() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(),
-                DividerItemDecoration.VERTICAL_LIST);
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST);
         mRecyclerView.addItemDecoration(itemDecoration);
         mAdapter = buildAdapter();
         mAdapter.setOnLoadMoreListener(this);
@@ -56,8 +54,6 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
-//        DaggerTopListComponent.builder().appComponent(appComponent).topListModule(new AppInfoModule(this))
-//                .build().inject(this);
     }
 
     @Override
