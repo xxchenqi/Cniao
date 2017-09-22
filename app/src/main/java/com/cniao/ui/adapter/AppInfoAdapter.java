@@ -71,29 +71,30 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo, BaseViewHolder> {
         private boolean isShowPosition;
         private boolean isShowCategoryName;
         private boolean isShowBrief;
+        private int layoutId = R.layout.template_appinfo;
 
         public Builder showPosition(boolean b) {
-
             this.isShowPosition = b;
             return this;
         }
 
         public Builder showCategoryName(boolean b) {
-
             this.isShowCategoryName = b;
             return this;
         }
 
         public Builder showBrief(boolean b) {
-
             this.isShowBrief = b;
             return this;
         }
 
         public AppInfoAdapter build() {
-
-
             return new AppInfoAdapter(this);
+        }
+
+        public Builder layout(int resId) {
+            this.layoutId = resId;
+            return this;
         }
     }
 }

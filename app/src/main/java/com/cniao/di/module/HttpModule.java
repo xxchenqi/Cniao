@@ -2,7 +2,6 @@ package com.cniao.di.module;
 
 import android.app.Application;
 
-import com.cniao.AppApplication;
 import com.cniao.common.http.CommonParamsInterceptor;
 import com.cniao.common.rx.RxErrorHandler;
 import com.cniao.data.http.ApiService;
@@ -41,6 +40,7 @@ public class HttpModule {
         return new OkHttpClient.Builder()
                 // HeadInterceptor实现了Interceptor，用来往Request Header添加一些业务相关数据，如APP版本，token信息
 //                .addInterceptor(new HeadInterceptor())
+                .addInterceptor(logging)
                 .addInterceptor(new CommonParamsInterceptor(application, gson))
                 // 连接超时时间设置
                 .connectTimeout(10, TimeUnit.SECONDS)
@@ -58,7 +58,6 @@ public class HttpModule {
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(okHttpClient);
-
 
         return builder.build();
     }

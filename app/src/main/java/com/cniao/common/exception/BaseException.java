@@ -8,7 +8,6 @@ public class BaseException extends Exception {
 
     /*API错误*/
     public static final int API_ERROR = 0x0;
-
     /*网络错误*/
     public static final int NETWORD_ERROR = 0x1;
     /*http_错误*/
@@ -27,8 +26,6 @@ public class BaseException extends Exception {
 
     /*无网络连接*/
     public static final int SOCKET_ERROR = 0x8;
-
-
 
 
     //    api /////////////////////////////////////////
@@ -56,8 +53,6 @@ public class BaseException extends Exception {
     public static final int ERROR_HTTP_405=405;
 
     public static final int ERROR_HTTP_500=500;
-
-
 
     private int code;
     private String displayMessage;

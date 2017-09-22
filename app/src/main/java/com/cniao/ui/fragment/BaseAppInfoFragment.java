@@ -1,15 +1,19 @@
 package com.cniao.ui.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.cniao.R;
 import com.cniao.bean.AppInfo;
 import com.cniao.bean.PageBean;
 import com.cniao.di.component.AppComponent;
 import com.cniao.presenter.AppInfoPresenter;
 import com.cniao.presenter.contract.AppInfoContract;
+import com.cniao.ui.activity.AppDetailActivity;
 import com.cniao.ui.adapter.AppInfoAdapter;
 import com.cniao.ui.widget.DividerItemDecoration;
 
@@ -41,6 +45,17 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
         mAdapter = buildAdapter();
         mAdapter.setOnLoadMoreListener(this);
         mRecyclerView.setAdapter(mAdapter);
+
+        mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                AppInfo appInfo = mAdapter.getItem(position);
+                mApplication.setView(view);
+                Intent intent  = new Intent(getActivity(), AppDetailActivity.class);
+                intent.putExtra("appinfo",appInfo);
+                startActivity(intent);
+            }
+        });
     }
 
     abstract int type();

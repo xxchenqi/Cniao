@@ -2,6 +2,7 @@ package com.cniao;
 
 import android.app.Application;
 import android.content.Context;
+import android.view.View;
 
 import com.cniao.di.component.AppComponent;
 import com.cniao.di.component.DaggerAppComponent;
@@ -13,6 +14,7 @@ import com.cniao.di.module.HttpModule;
  */
 
 public class AppApplication extends Application {
+    private View mView;
     private AppComponent mAppComponent;
 
     public static AppApplication get(Context context) {
@@ -32,5 +34,13 @@ public class AppApplication extends Application {
                 .appModule(new AppModule(this))
                 .httpModule(new HttpModule())
                 .build();
+    }
+
+    public View getView() {
+        return mView;
+    }
+
+    public void setView(View mView) {
+        this.mView = mView;
     }
 }

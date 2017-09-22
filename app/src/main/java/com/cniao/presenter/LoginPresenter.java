@@ -58,11 +58,8 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginModel, Log
     }
 
     private void saveUser(LoginBean bean){
-
         ACache aCache = ACache.get(mContext);
-
         aCache.put(Constant.TOKEN,bean.getToken());
         aCache.put(Constant.USER,bean.getUser());
-
     }
 }
