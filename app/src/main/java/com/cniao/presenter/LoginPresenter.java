@@ -2,14 +2,16 @@ package com.cniao.presenter;
 
 import com.cniao.bean.LoginBean;
 import com.cniao.common.Constant;
+import com.cniao.common.rx.RxBus;
 import com.cniao.common.rx.RxHttpResponeCompat;
 import com.cniao.common.rx.subscriber.ErrorHandlerSubscriber;
 import com.cniao.common.util.ACache;
 import com.cniao.common.util.VerificationUtils;
 import com.cniao.presenter.contract.LoginContract;
-import com.hwangjr.rxbus.RxBus;
 
 import javax.inject.Inject;
+
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by chenqi on 2017/9/19.
@@ -33,13 +35,15 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginModel, Log
         mModel.login(phone, pwd).compose(RxHttpResponeCompat.<LoginBean>compatResult())
                 .subscribe(new ErrorHandlerSubscriber<LoginBean>(mContext) {
                     @Override
-                    public void onStart() {
-                        mView.showLoading();
+                    public void onSubscribe(Disposable d) {
+
                     }
 
                     @Override
-                    public void onCompleted() {
-                        mView.dismissLoading();
+                    public void onNext(LoginBean loginBean) {
+                        mView.loginSuccess(loginBean);
+                        saveUser(loginBean);
+                        RxBus.getDefault().post(loginBean.getUser()); // 发送数据
                     }
 
                     @Override
@@ -49,10 +53,8 @@ public class LoginPresenter extends BasePresenter<LoginContract.ILoginModel, Log
                     }
 
                     @Override
-                    public void onNext(LoginBean loginBean) {
-                        mView.loginSuccess(loginBean);
-                        saveUser(loginBean);
-                        RxBus.get().post(loginBean.getUser());
+                    public void onComplete() {
+                        mView.dismissLoading();
                     }
                 });
     }

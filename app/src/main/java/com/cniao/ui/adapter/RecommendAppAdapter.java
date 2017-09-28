@@ -11,7 +11,8 @@ import android.widget.TextView;
 
 import com.cniao.R;
 import com.cniao.bean.AppInfo;
-import com.squareup.picasso.Picasso;
+import com.cniao.common.Constant;
+import com.cniao.common.imageloader.ImageLoader;
 
 import java.util.List;
 
@@ -43,7 +44,8 @@ public class RecommendAppAdapter extends RecyclerView.Adapter<RecommendAppAdapte
     public void onBindViewHolder(ViewHolder holder, int position) {
         AppInfo appInfo = mDatas.get(position);
         String baseImgUrl = "http://file.market.xiaomi.com/mfc/thumbnail/png/w150q80/";
-        Picasso.with(mContext).load(baseImgUrl + appInfo.getIcon()).into(holder.imgIcon);
+//        Picasso.with(mContext).load(baseImgUrl + appInfo.getIcon()).into(holder.imgIcon);
+        ImageLoader.load(Constant.BASE_IMG_URL+appInfo.getIcon(),holder.imgIcon);
         holder.textTitle.setText(appInfo.getDisplayName());
         holder.textSize.setText(appInfo.getApkSize() / 1024 / 1024 + "MB");
 

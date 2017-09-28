@@ -3,10 +3,13 @@ package com.cniao.common.util;
 import android.Manifest;
 import android.app.Activity;
 
-import com.tbruyelle.rxpermissions.RxPermissions;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
-import rx.Observable;
-import rx.Subscriber;
+import org.reactivestreams.Subscriber;
+
+import io.reactivex.Observable;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
 
 /**
  * 菜鸟窝http://www.cniao5.com 一个高端的互联网技能学习平台
@@ -20,33 +23,19 @@ import rx.Subscriber;
 
 public class PermissionUtil {
 
-    public static void readPhonestate(Activity activity){
-        requestPermisson(activity, Manifest.permission.READ_PHONE_STATE).subscribe(new Subscriber<Boolean>() {
+    public static void readPhonestate(Activity activity) {
+        requestPermisson(activity, Manifest.permission.READ_PHONE_STATE).subscribe(new Consumer<Boolean>() {
             @Override
-            public void onCompleted() {
-            }
+            public void accept(@NonNull Boolean aBoolean) throws Exception {
 
-            @Override
-            public void onError(Throwable e) {
-            }
-
-            @Override
-            public void onNext(Boolean aBoolean) {
             }
         });
     }
 
 
-    public static Observable<Boolean> requestPermisson(Activity activity, String permission){
-        RxPermissions rxPermissions = new RxPermissions(activity);
+    public static Observable<Boolean> requestPermisson(Activity activity, String permission) {
+        RxPermissions rxPermissions = RxPermissions.getInstance(activity);
         return rxPermissions.request(permission);
     }
-
-    public static Observable.Transformer<Object, Boolean> ensure(Activity activity, String permission){
-        RxPermissions rxPermissions = new RxPermissions(activity);
-       return  rxPermissions.ensure(permission);
-    }
-
-
 
 }

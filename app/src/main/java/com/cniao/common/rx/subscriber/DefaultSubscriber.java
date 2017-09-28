@@ -1,11 +1,12 @@
 package com.cniao.common.rx.subscriber;
 
-import rx.Subscriber;
+
+import io.reactivex.Observer;
 
 /**
  * Created by chenqi on 2017/6/13.
  */
 
-public abstract class DefaultSubscriber<T> extends Subscriber<T> {
+public abstract class DefaultSubscriber<T> implements Observer<T> {
 
 }

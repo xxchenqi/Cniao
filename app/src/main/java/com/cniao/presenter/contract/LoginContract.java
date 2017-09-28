@@ -4,7 +4,8 @@ import com.cniao.bean.BaseBean;
 import com.cniao.bean.LoginBean;
 import com.cniao.ui.BaseView;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by chenqi on 2017/9/19.

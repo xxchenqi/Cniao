@@ -6,7 +6,8 @@ import com.cniao.bean.requestbean.LoginRequestBean;
 import com.cniao.data.http.ApiService;
 import com.cniao.presenter.contract.LoginContract;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by chenqi on 2017/9/19.

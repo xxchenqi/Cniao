@@ -11,8 +11,9 @@ import com.cniao.presenter.contract.AppInfoContract;
 
 import javax.inject.Inject;
 
-import rx.Observable;
-import rx.Subscriber;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by chenqi on 2017/8/24.
@@ -41,26 +42,42 @@ public class AppInfoPresenter extends BasePresenter<AppInfoModel, AppInfoContrac
     }
 
     public void request(int type, int page, int categoryId, int flagType) {
-        Subscriber subscriber = null;
+        Observer subscriber;
         if (page == 0) {
             //加载第一页
             subscriber = new ProgressSubscriber<PageBean<AppInfo>>(mContext, mView) {
                 @Override
+                public void onSubscribe(Disposable d) {
+
+                }
+
+                @Override
                 public void onNext(PageBean<AppInfo> appInfoPageBean) {
                     mView.showResult(appInfoPageBean);
+                }
+
+                @Override
+                public void onComplete() {
+
                 }
             };
         } else {
             //加载第下页
             subscriber = new ErrorHandlerSubscriber<PageBean<AppInfo>>(mContext) {
+
                 @Override
-                public void onCompleted() {
-                    mView.onLoadMoreComplete();
+                public void onSubscribe(Disposable d) {
+
                 }
 
                 @Override
                 public void onNext(PageBean<AppInfo> pageBeanSubscriber) {
                     mView.showResult(pageBeanSubscriber);
+                }
+
+                @Override
+                public void onComplete() {
+                    mView.onLoadMoreComplete();
                 }
             };
         }

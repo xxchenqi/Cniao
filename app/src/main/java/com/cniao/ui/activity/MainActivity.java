@@ -22,17 +22,16 @@ import com.cniao.bean.User;
 import com.cniao.common.Constant;
 import com.cniao.common.font.Cniao5Font;
 import com.cniao.common.imageloader.GlideCircleTransform;
+import com.cniao.common.rx.RxBus;
 import com.cniao.common.util.ACache;
 import com.cniao.common.util.PermissionUtil;
 import com.cniao.di.component.AppComponent;
 import com.cniao.ui.adapter.ViewPagerAdapter;
-import com.hwangjr.rxbus.RxBus;
-import com.hwangjr.rxbus.annotation.Subscribe;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
 
 import butterknife.BindView;
-import rx.functions.Action1;
+import io.reactivex.functions.Consumer;
 
 public class MainActivity extends BaseActivity {
 
@@ -64,11 +63,16 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void init() {
-        RxBus.get().register(this);
+        RxBus.getDefault().toObservable(User.class).subscribe(new Consumer<User>() {
+            @Override
+            public void accept(@io.reactivex.annotations.NonNull User user) throws Exception {
+                initUserHeadView(user);
+            }
+        });
         PermissionUtil.requestPermisson(this, Manifest.permission.READ_PHONE_STATE)
-                .subscribe(new Action1<Boolean>() {
+                .subscribe(new Consumer<Boolean>() {
                     @Override
-                    public void call(Boolean aBoolean) {
+                    public void accept(Boolean aBoolean) {
                         if (aBoolean) {
                             initDrawerLayout();
                             initTabLayout();
@@ -135,11 +139,6 @@ public class MainActivity extends BaseActivity {
         Toast.makeText(MainActivity.this, "您已退出登录", Toast.LENGTH_LONG).show();
     }
 
-    @Subscribe
-    public void getUser(User user) {
-        initUserHeadView(user);
-    }
-
     private void initUser() {
         Object objUser = ACache.get(this).getAsObject(Constant.USER);
         if (objUser == null) {
@@ -162,9 +161,4 @@ public class MainActivity extends BaseActivity {
         mTextUserName.setText(user.getUsername());
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        RxBus.get().unregister(this);
-    }
 }

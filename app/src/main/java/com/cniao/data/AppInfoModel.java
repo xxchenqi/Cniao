@@ -6,7 +6,8 @@ import com.cniao.bean.IndexBean;
 import com.cniao.bean.PageBean;
 import com.cniao.data.http.ApiService;
 
-import rx.Observable;
+import io.reactivex.Observable;
+
 
 /**
  * Created by chenqi on 2017/6/7.
