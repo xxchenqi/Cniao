@@ -9,7 +9,7 @@ import com.cniao.ui.BaseView;
  * Created by chenqi on 2017/6/7.
  */
 
-public interface AppxInfoContract {
+public interface AppInfoContract {
     interface View extends BaseView {
         void showResult(IndexBean indexBean);
 
