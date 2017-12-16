@@ -3,10 +3,6 @@ package com.cniao.bean;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by Ivan on 2016/12/30.
- */
-
 public class AppInfo implements Serializable {
 
 
@@ -60,6 +56,16 @@ public class AppInfo implements Serializable {
     private List<AppInfo> sameDevAppInfoList;
     private String categoryId;
 
+
+    private AppDownloadInfo mAppDownloadInfo;
+
+    public AppDownloadInfo getAppDownloadInfo() {
+        return mAppDownloadInfo;
+    }
+
+    public void setAppDownloadInfo(AppDownloadInfo appDownloadInfo) {
+        mAppDownloadInfo = appDownloadInfo;
+    }
 
     public void setAddTime(int addTime) {
         this.addTime = addTime;
@@ -231,6 +237,7 @@ public class AppInfo implements Serializable {
     }
 
 
+
     public void setVersionCode(int versionCode) {
         this.versionCode = versionCode;
     }
@@ -400,6 +407,7 @@ public class AppInfo implements Serializable {
     }
 
 
+
     public String getIntroduction() {
         return introduction;
     }
@@ -456,7 +464,7 @@ public class AppInfo implements Serializable {
         }
     }
 
-    public class Tag implements Serializable {
+    public class  Tag implements Serializable{
 
 
         /**

@@ -2,6 +2,7 @@ package com.cniao.common.util;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
@@ -23,7 +24,7 @@ import io.reactivex.functions.Consumer;
 
 public class PermissionUtil {
 
-    public static void readPhonestate(Activity activity) {
+    public static void readPhonestate(Context activity) {
         requestPermisson(activity, Manifest.permission.READ_PHONE_STATE).subscribe(new Consumer<Boolean>() {
             @Override
             public void accept(@NonNull Boolean aBoolean) throws Exception {
@@ -33,7 +34,7 @@ public class PermissionUtil {
     }
 
 
-    public static Observable<Boolean> requestPermisson(Activity activity, String permission) {
+    public static Observable<Boolean> requestPermisson(Context activity, String permission) {
         RxPermissions rxPermissions = RxPermissions.getInstance(activity);
         return rxPermissions.request(permission);
     }

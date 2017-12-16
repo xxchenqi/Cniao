@@ -29,10 +29,10 @@ public class HttpModule {
     @Singleton
     public OkHttpClient provideOkHttpClient(Application application, Gson gson) {
         // log用拦截器
-        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+//        HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
 
         // 开发模式记录整个body，否则只记录基本信息如返回200，http协议版本等
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+//        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         // 如果使用到HTTPS，我们需要创建SSLSocketFactory，并设置到client
 //        SSLSocketFactory sslSocketFactory = null;
@@ -40,7 +40,7 @@ public class HttpModule {
         return new OkHttpClient.Builder()
                 // HeadInterceptor实现了Interceptor，用来往Request Header添加一些业务相关数据，如APP版本，token信息
 //                .addInterceptor(new HeadInterceptor())
-                .addInterceptor(logging)
+//                .addInterceptor(logging)
                 .addInterceptor(new CommonParamsInterceptor(application, gson))
                 // 连接超时时间设置
                 .connectTimeout(10, TimeUnit.SECONDS)

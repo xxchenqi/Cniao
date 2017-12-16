@@ -13,6 +13,8 @@ import com.cniao.common.imageloader.ImageLoader;
 import com.cniao.ui.widget.DownloadButtonConntroller;
 import com.cniao.ui.widget.DownloadProgressButton;
 
+import zlc.season.rxdownload2.RxDownload;
+
 /**
  * 菜鸟窝http://www.cniao5.com 一个高端的互联网技能学习平台
  *
@@ -25,16 +27,18 @@ import com.cniao.ui.widget.DownloadProgressButton;
 
 public class AppInfoAdapter extends BaseQuickAdapter<AppInfo, BaseViewHolder> {
 
-
     String baseImgUrl = "http://file.market.xiaomi.com/mfc/thumbnail/png/w150q80/";
 
-
     private Builder mBuilder;
+
+    private DownloadButtonConntroller mDownloadButtonConntroller;
 
     private AppInfoAdapter(Builder builder) {
         super(builder.layoutId);
 
         this.mBuilder = builder;
+
+        mDownloadButtonConntroller = new DownloadButtonConntroller(builder.mRxDownload);
 
         openLoadAnimation();
     }
@@ -79,20 +83,26 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo, BaseViewHolder> {
         }
 
 
-        DownloadProgressButton btn = helper.getView(R.id.btn_download);
+        helper.addOnClickListener(R.id.btn_download);
 
-//        DownloadButtonConntroller.handClick(btn, item);
+        View viewBtn = helper.getView(R.id.btn_download);
+
+        if (viewBtn instanceof DownloadProgressButton) {
+
+            DownloadProgressButton btn = (DownloadProgressButton) viewBtn;
+            mDownloadButtonConntroller.handClick(btn, item);
+        }
 
 
     }
 
-
     public static class Builder {
-
 
         private boolean isShowPosition;
         private boolean isShowCategoryName;
         private boolean isShowBrief;
+
+        private RxDownload mRxDownload;
 
 
         private int layoutId = R.layout.template_appinfo;
@@ -127,6 +137,11 @@ public class AppInfoAdapter extends BaseQuickAdapter<AppInfo, BaseViewHolder> {
 
         public Builder layout(int resId) {
             this.layoutId = resId;
+            return this;
+        }
+
+        public Builder rxDownload(RxDownload rxDownload) {
+            this.mRxDownload = rxDownload;
             return this;
         }
 

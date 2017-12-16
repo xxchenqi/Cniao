@@ -17,7 +17,10 @@ import com.cniao.ui.activity.AppDetailActivity;
 import com.cniao.ui.adapter.AppInfoAdapter;
 import com.cniao.ui.widget.DividerItemDecoration;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
+import zlc.season.rxdownload2.RxDownload;
 
 /**
  * Created by chenqi on 2017/9/18.
@@ -27,7 +30,8 @@ public abstract class BaseAppInfoFragment extends ProgressFragment<AppInfoPresen
         AppInfoContract.AppInfoView, BaseQuickAdapter.RequestLoadMoreListener {
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
-
+    @Inject
+    RxDownload mRxDownload;
     int page = 0;
 
     protected AppInfoAdapter mAdapter;

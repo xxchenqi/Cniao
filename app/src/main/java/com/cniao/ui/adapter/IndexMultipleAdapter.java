@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -24,6 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import zlc.season.rxdownload2.RxDownload;
 
 /**
  * Created by chenqi on 2017/8/17.
@@ -43,10 +45,12 @@ public class IndexMultipleAdapter extends RecyclerView.Adapter<RecyclerView.View
     private LayoutInflater mLayoutInflater;
 
     private Context mContext;
+    private RxDownload mRxDownload;
 
-    public IndexMultipleAdapter(Context context) {
+    public IndexMultipleAdapter(Context context, RxDownload rxDownload) {
 
         mContext = context;
+        this.mRxDownload = rxDownload;
         mLayoutInflater = LayoutInflater.from(context);
     }
 
@@ -124,7 +128,12 @@ public class IndexMultipleAdapter extends RecyclerView.Adapter<RecyclerView.View
         } else {
             AppViewHolder viewHolder = (AppViewHolder) holder;
 
-            AppInfoAdapter appInfoAdapter = AppInfoAdapter.builder().showBrief(true).showCategoryName(false).showPosition(false).build();
+            AppInfoAdapter appInfoAdapter = AppInfoAdapter.builder()
+                    .showBrief(true)
+                    .showCategoryName(false)
+                    .showPosition(false)
+                    .rxDownload(mRxDownload)
+                    .build();
 
             if (viewHolder.type == TYPE_APPS) {
                 viewHolder.mText.setText("热门应用");
@@ -139,7 +148,7 @@ public class IndexMultipleAdapter extends RecyclerView.Adapter<RecyclerView.View
             viewHolder.mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
                 @Override
                 public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                    Toast.makeText(mContext, "interst", Toast.LENGTH_SHORT).show();
                 }
             });
             AppInfoAdapter.builder().showBrief(true).showCategoryName(false).showPosition(false).build();

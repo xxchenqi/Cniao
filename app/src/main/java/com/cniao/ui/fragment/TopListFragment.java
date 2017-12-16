@@ -21,7 +21,12 @@ public class TopListFragment extends BaseAppInfoFragment implements AppInfoContr
 
     @Override
     AppInfoAdapter buildAdapter() {
-        return AppInfoAdapter.builder().showBrief(false).showCategoryName(true).showPosition(true).build();
+        return AppInfoAdapter.builder()
+                .showBrief(false)
+                .showCategoryName(true)
+                .showPosition(true)
+                .rxDownload(mRxDownload)
+                .build();
     }
 
     @Override
