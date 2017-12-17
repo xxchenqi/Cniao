@@ -5,12 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.cniao.ui.bean.FragmentInfo;
-import com.cniao.ui.fragment.CategoryFragment;
-import com.cniao.ui.fragment.GamesFragment;
-import com.cniao.ui.fragment.TopListFragment;
-import com.cniao.ui.fragment.RecommendFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,37 +14,34 @@ import java.util.List;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
+    private List<FragmentInfo> mFragments;
 
-    private List<FragmentInfo> mFragments = new ArrayList<>();
-
-    public ViewPagerAdapter(FragmentManager fm) {
+    public ViewPagerAdapter(FragmentManager fm, List<FragmentInfo> fragments) {
         super(fm);
-        initFragment();
-    }
-
-    private void initFragment() {
-        mFragments.add(new FragmentInfo("推荐", RecommendFragment.class));
-        mFragments.add(new FragmentInfo("排行", TopListFragment.class));
-        mFragments.add(new FragmentInfo("游戏", GamesFragment.class));
-        mFragments.add(new FragmentInfo("分类", CategoryFragment.class));
+        mFragments = fragments;
     }
 
     @Override
     public Fragment getItem(int position) {
+
         try {
             return (Fragment) mFragments.get(position).getFragment().newInstance();
+
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
+
         return null;
+
     }
 
     @Override
     public int getCount() {
         return mFragments.size();
     }
+
 
     @Override
     public CharSequence getPageTitle(int position) {

@@ -27,8 +27,16 @@ import com.cniao.common.util.ACache;
 import com.cniao.common.util.PermissionUtil;
 import com.cniao.di.component.AppComponent;
 import com.cniao.ui.adapter.ViewPagerAdapter;
+import com.cniao.ui.bean.FragmentInfo;
+import com.cniao.ui.fragment.CategoryFragment;
+import com.cniao.ui.fragment.GamesFragment;
+import com.cniao.ui.fragment.RecommendFragment;
+import com.cniao.ui.fragment.TopListFragment;
 import com.mikepenz.iconics.IconicsDrawable;
 import com.mikepenz.ionicons_typeface_library.Ionicons;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import io.reactivex.functions.Consumer;
@@ -85,10 +93,25 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initTabLayout() {
-        PagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        PagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), initFragments());
         mViewPager.setOffscreenPageLimit(adapter.getCount());
         mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    private List<FragmentInfo> initFragments() {
+
+        List<FragmentInfo> mFragments = new ArrayList<>(4);
+
+        mFragments.add(new FragmentInfo("推荐", RecommendFragment.class));
+        mFragments.add(new FragmentInfo("排行", TopListFragment.class));
+
+
+        mFragments.add(new FragmentInfo("游戏", GamesFragment.class));
+        mFragments.add(new FragmentInfo("分类", CategoryFragment.class));
+
+        return mFragments;
+
     }
 
     private void initDrawerLayout() {
@@ -110,6 +133,10 @@ public class MainActivity extends BaseActivity {
                     case R.id.menu_logout:
                         logout();
                         break;
+                    case R.id.menu_download_manager:
+                        toAppManagerActivity();
+                        break;
+
                 }
                 return false;
             }
@@ -159,6 +186,10 @@ public class MainActivity extends BaseActivity {
         Glide.with(this).load(user.getLogo_url()).transform(new GlideCircleTransform(this))
                 .into(mUserHeadView);
         mTextUserName.setText(user.getUsername());
+    }
+
+    private void toAppManagerActivity(){
+        startActivity(new Intent(MainActivity.this,AppManagerActivity.class));
     }
 
 }

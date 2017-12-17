@@ -30,6 +30,7 @@
         <activity android:name=".ui.activity.LoginActivity"/>
         <activity android:name=".ui.activity.GuideActivity" />
         <activity android:name=".ui.activity.CategoryAppActivity" />
+        <activity android:name=".ui.activity.AppManagerActivity" />
         <activity android:name=".ui.activity.AppDetailActivity" android:theme="@style/AppTheme.Transparent">
         </activity>
         <meta-data

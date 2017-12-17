@@ -3,11 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Cniao.iml" filepath="$PROJECT_DIR$/Cniao.iml" />
-      <module fileurl="file://F:\work\Cniao\Cniao.iml" filepath="F:\work\Cniao\Cniao.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://F:\work\Cniao\app\app.iml" filepath="F:\work\Cniao\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/rxdownload2/rxdownload2.iml" filepath="$PROJECT_DIR$/rxdownload2/rxdownload2.iml" />
-      <module fileurl="file://$PROJECT_DIR$/rxdownload3/rxdownload3.iml" filepath="$PROJECT_DIR$/rxdownload3/rxdownload3.iml" />
     </modules>
   </component>
 </project>

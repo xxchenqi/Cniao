@@ -1,1 +1,1 @@
-include ':app', ':rxdownload3', ':rxdownload2'
+include ':app', ':rxdownload2'

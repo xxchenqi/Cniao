@@ -2,6 +2,7 @@ package com.cniao.common.http;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.cniao.common.Constant;
 import com.cniao.common.util.ACache;
@@ -114,6 +115,7 @@ public class CommonParamsInterceptor implements Interceptor {
         } catch (JsonSyntaxException e) {
             e.printStackTrace();
         }
+        Log.i("xxchenqi",request.url().url().toString());
         return chain.proceed(request);
     }
 }
