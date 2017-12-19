@@ -3,7 +3,9 @@ package com.cniao.di.component;
 
 import com.cniao.di.FragmentScope;
 import com.cniao.di.module.AppManagerModule;
+import com.cniao.ui.fragment.DownloadedFragment;
 import com.cniao.ui.fragment.DownloadingFragment;
+import com.cniao.ui.fragment.InstalledAppAppFragment;
 
 import dagger.Component;
 
@@ -21,7 +23,7 @@ import dagger.Component;
 @Component(modules = AppManagerModule.class,dependencies = AppComponent.class)
 public interface AppManagerComponent {
     void inject(DownloadingFragment fragment);
-//    void injectDownloaded(DownloadedFragment fragment);
-//    void injectInstalled(InstalledAppAppFragment fragment);
+    void injectDownloaded(DownloadedFragment fragment);
+    void injectInstalled(InstalledAppAppFragment fragment);
 
 }

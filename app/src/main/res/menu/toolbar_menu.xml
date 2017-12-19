@@ -6,5 +6,9 @@
         android:icon="@mipmap/ic_search"
         android:title="搜索"
         app:showAsAction="ifRoom" />
-
+    <item
+        android:id="@+id/action_download"
+        android:icon="@mipmap/ic_download"
+        android:title="@string/download"
+        app:showAsAction="ifRoom" />
 </menu>

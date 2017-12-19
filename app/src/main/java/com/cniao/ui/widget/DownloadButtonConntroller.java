@@ -225,7 +225,8 @@ public class DownloadButtonConntroller {
 
         mRxDownload.serviceDownload(appInfo2DownloadBean(info)).subscribe();
 
-        mRxDownload.receiveDownloadStatus(info.getAppDownloadInfo().getDownloadUrl()).subscribe(new DownloadConsumer(btn, info));
+        mRxDownload.receiveDownloadStatus(info.getAppDownloadInfo().getDownloadUrl())
+                .subscribe(new DownloadConsumer(btn, info));
 
     }
 

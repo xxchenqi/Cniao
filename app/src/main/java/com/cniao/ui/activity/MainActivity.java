@@ -82,6 +82,7 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public void accept(Boolean aBoolean) {
                         if (aBoolean) {
+                            initToolbar();
                             initDrawerLayout();
                             initTabLayout();
                             initUser();
@@ -91,6 +92,26 @@ public class MainActivity extends BaseActivity {
                     }
                 });
     }
+
+    private void initToolbar() {
+
+        mToolBar.inflateMenu(R.menu.toolbar_menu);
+//        Menu menu  = mToolBar.getMenu();
+
+        mToolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+
+                if (item.getItemId() == R.id.action_download) {
+
+                    startActivity(new Intent(MainActivity.this, AppManagerActivity.class));
+                }
+
+                return true;
+            }
+        });
+    }
+
 
     private void initTabLayout() {
         PagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), initFragments());
@@ -188,8 +209,8 @@ public class MainActivity extends BaseActivity {
         mTextUserName.setText(user.getUsername());
     }
 
-    private void toAppManagerActivity(){
-        startActivity(new Intent(MainActivity.this,AppManagerActivity.class));
+    private void toAppManagerActivity() {
+        startActivity(new Intent(MainActivity.this, AppManagerActivity.class));
     }
 
 }
